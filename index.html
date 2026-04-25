@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz San Valentín</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background: linear-gradient(135deg, #f7eee5, #eee1d6);
+      color: #6f5e50;
+    }
+
+    .page {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      padding: 42px 7vw;
+    }
+
+    .arc {
+      position: absolute;
+      top: 18px;
+      left: 23%;
+      width: 62%;
+      height: 75px;
+      border-top: 4px solid rgba(137, 120, 104, 0.22);
+      border-radius: 50%;
+      transform: rotate(2deg);
+    }
+
+    .badge {
+      position: absolute;
+      top: 23px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.7);
+      padding: 12px 24px;
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(255, 130, 160, 0.18);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #7c6a5c;
+    }
+
+    .badge::before,
+    .badge::after {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #f05d76;
+      border-radius: 50%;
+      margin: 0 10px 1px;
+    }
+
+    .message {
+      position: relative;
+      z-index: 3;
+      max-width: 550px;
+      font-weight: 900;
+      font-size: clamp(24px, 2.6vw, 31px);
+      line-height: 1.43;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    }
+
+    .message p {
+      margin-bottom: 18px;
+    }
+
+    .message .small-title {
+      font-size: clamp(23px, 2.4vw, 28px);
+    }
+
+    .card {
+      position: absolute;
+      right: 12vw;
+      top: 27%;
+      width: 285px;
+      height: 340px;
+      background: rgba(255, 235, 231, 0.48);
+      border-radius: 2px;
+      box-shadow: 0 35px 70px rgba(144, 116, 95, 0.13);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .face {
+      position: relative;
+      width: 150px;
+      height: 150px;
+    }
+
+    .eye {
+      position: absolute;
+      top: 22px;
+      width: 8px;
+      height: 8px;
+      background: #8a5c38;
+      border-radius: 50%;
+      transform: rotate(35deg);
+    }
+
+    .eye.left { left: 35px; }
+    .eye.right { right: 35px; }
+
+    .eye::before {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 3px;
+      background: #8a5c38;
+      border-radius: 50%;
+      top: -2px;
+      left: -4px;
+      transform: rotate(35deg);
+    }
+
+    .mouth {
+      position: absolute;
+      top: 62px;
+      left: 50%;
+      width: 54px;
+      height: 42px;
+      border-left: 8px solid #8a5c38;
+      border-bottom: 8px solid #8a5c38;
+      border-radius: 0 0 10px 10px;
+      transform: translateX(-50%) rotate(-45deg);
+    }
+
+    .line {
+      position: absolute;
+      top: 116px;
+      left: 50%;
+      width: 10px;
+      height: 105px;
+      background: #8a5c38;
+      border-radius: 20px;
+      transform: translateX(-50%);
+    }
+
+    .bear {
+      position: absolute;
+      width: 108px;
+      height: 92px;
+      background: #ffd0b1;
+      border-radius: 45% 45% 48% 48%;
+      opacity: 0.95;
+      box-shadow: 0 14px 25px rgba(200, 120, 90, 0.13);
+    }
+
+    .bear::before,
+    .bear::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 34px;
+      height: 34px;
+      background: #ffd0b1;
+      border-radius: 50%;
+    }
+
+    .bear::before { left: 0; }
+    .bear::after { right: 0; }
+
+    .bear.top {
+      top: 86px;
+      right: 10.7vw;
+    }
+
+    .bear.bottom {
+      bottom: 85px;
+      left: 7vw;
+    }
+
+    .bear .inner-eye {
+      position: absolute;
+      top: 42px;
+      width: 13px;
+      height: 13px;
+      background: #9d816b;
+      border: 3px solid rgba(120, 96, 78, .22);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .bear .inner-eye.left { left: 30px; }
+    .bear .inner-eye.right { right: 30px; }
+
+    .bear .snout {
+      position: absolute;
+      top: 55px;
+      left: 50%;
+      width: 38px;
+      height: 27px;
+      background: #fff6ed;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .bear .snout::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background: #ad8d74;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .bear .snout::after {
+      content: "";
+      position: absolute;
+      top: 13px;
+      left: 50%;
+      width: 16px;
+      height: 8px;
+      border-bottom: 4px solid #ad8d74;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .heart {
+      position: absolute;
+      color: #f25d78;
+      font-size: 24px;
+      animation: float 4.5s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    .heart.small { font-size: 15px; opacity: .75; }
+    .heart.tiny { font-size: 11px; opacity: .45; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(8deg); }
+    }
+
+    .dot {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      background: #ef6078;
+      border-radius: 50%;
+      opacity: .75;
+      animation: pulse 2.8s infinite ease-in-out;
+    }
+
+    .dot.light {
+      background: #ff9caf;
+      opacity: .65;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .6; }
+      50% { transform: scale(1.35); opacity: 1; }
+    }
+
+    .star {
+      position: absolute;
+      right: 11vw;
+      bottom: 77px;
+      width: 105px;
+      height: 105px;
+      background: #ffd3dd;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 56%, 79% 91%, 50% 69%, 21% 91%, 32% 56%, 2% 35%, 39% 35%);
+      opacity: .7;
+    }
+
+    .signature {
+      position: absolute;
+      right: 9.5vw;
+      bottom: 48px;
+      background: rgba(255, 255, 255, 0.52);
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      padding: 10px 15px;
+      border-radius: 18px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #b29b8d;
+      box-shadow: 0 15px 30px rgba(120, 90, 70, .08);
+      z-index: 3;
+    }
+
+    .signature span {
+      color: #ff6f80;
+    }
+
+    .pink-dot-1 { top: 40px; left: 17%; }
+    .pink-dot-2 { top: 26px; left: 25%; }
+    .pink-dot-3 { top: 16px; left: 35%; }
+    .pink-dot-4 { top: 14px; left: 44%; }
+    .pink-dot-5 { top: 36px; left: 72%; }
+    .pink-dot-6 { top: 24px; left: 63%; }
+
+    @media (max-width: 850px) {
+      body {
+        overflow-y: auto;
+      }
+
+      .page {
+        height: auto;
+        min-height: 100vh;
+        padding: 82px 28px 260px;
+      }
+
+      .message {
+        max-width: 100%;
+        font-size: 24px;
+      }
+
+      .card {
+        right: 50%;
+        top: auto;
+        bottom: 95px;
+        transform: translateX(50%);
+        width: 230px;
+        height: 245px;
+      }
+
+      .bear.top {
+        top: 35px;
+        right: 24px;
+        transform: scale(.75);
+      }
+
+      .bear.bottom {
+        bottom: 30px;
+        left: 22px;
+        transform: scale(.75);
+      }
+
+      .star,
+      .signature {
+        right: 22px;
+      }
+
+      .badge {
+        top: 18px;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="arc"></div>
+    <div class="badge">Feliz San Valentín</div>
+
+    <section class="message">
+      <p class="small-title">Para una amiga increíble:</p>
+
+      <p>
+        No todos los días uno encuentra a alguien<br>
+        que haga sonreír sin esfuerzo.
+      </p>
+
+      <p>
+        Me gusta tu forma de ser,<br>
+        tu energía, tu manera tan única de<br>
+        ver la vida.
+      </p>
+
+      <p>
+        Y aunque hoy solo pueda decir que te<br>
+        quiero mucho,<br>
+        quién sabe lo que el tiempo pueda<br>
+        convertir.
+      </p>
+
+      <p>
+        Lo único que sé es que me encanta<br>
+        tenerte cerca.<br>
+        — Con cariño 💞
+      </p>
+    </section>
+
+    <div class="card">
+      <div class="face">
+        <span class="eye left"></span>
+        <span class="eye right"></span>
+        <span class="mouth"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+
+    <div class="bear top">
+      <span class="inner-eye left"></span>
+      <span class="inner-eye right"></span>
+      <span class="snout"></span>
+    </div>
+
+    <div class="bear bottom">
+      <span class="inner-eye left"></span>
+      <span class="inner-eye right"></span>
+      <span class="snout"></span>
+    </div>
+
+    <div class="star"></div>
+    <div class="signature">Hecho por <span>Dev David</span></div>
+
+    <span class="heart" style="top: 0px; left: 53%;">♥</span>
+    <span class="heart small" style="top: 20px; left: 57%;">♥</span>
+    <span class="heart small" style="top: 78px; right: 10%;">♥</span>
+    <span class="heart small" style="top: 154px; left: 46%;">♥</span>
+    <span class="heart small" style="top: 236px; left: 40%;">♥</span>
+    <span class="heart small" style="top: 72px; left: 12%;">♥</span>
+    <span class="heart" style="top: 174px; right: 15%;">♥</span>
+    <span class="heart tiny" style="top: 142px; left: 57%;">♥</span>
+    <span class="heart tiny" style="top: 302px; right: 32%;">♥</span>
+
+    <span class="dot pink-dot-1"></span>
+    <span class="dot light pink-dot-2"></span>
+    <span class="dot light pink-dot-3"></span>
+    <span class="dot pink-dot-4"></span>
+    <span class="dot pink-dot-5"></span>
+    <span class="dot light pink-dot-6"></span>
+    <span class="dot light" style="top: 42px; left: 19%;"></span>
+    <span class="dot light" style="top: 20px; left: 62%;"></span>
+    <span class="dot light" style="bottom: 140px; right: 12%;"></span>
+    <span class="dot light" style="bottom: 95px; right: 8%;"></span>
+  </main>
+</body>
+</html>
